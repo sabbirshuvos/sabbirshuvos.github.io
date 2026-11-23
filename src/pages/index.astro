@@ -1,0 +1,117 @@
+---
+import '@fontsource/newsreader/400.css';
+import '@fontsource/newsreader/600.css';
+import '@fontsource/public-sans/400.css';
+import '@fontsource/public-sans/600.css';
+import '../styles/global.css';
+import site from '../data/site.json';
+import skills from '../data/skills.json';
+import projects from '../data/projects.json';
+import experience from '../data/experience.json';
+import journey from '../data/journey.json';
+import achievements from '../data/achievements.json';
+import certifications from '../data/certifications.json';
+import gallery from '../data/gallery.json';
+import learning from '../data/learning.json';
+import education from '../data/education.json';
+const has = (d) => d.items.length > 0;
+const paras = site.about.split('\n\n');
+const nav = [['about','About'],['education','Education'],['skills','Skills'],['projects','Projects'],['experience','Experience'],['journey','Journey'],['gallery','Gallery'],['cv','CV'],['contact','Contact']];
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{site.name} | Computer Science and Engineering Student</title>
+<meta name="description" content="Portfolio of {site.name}, a Computer Science and Engineering student at {site.university}, Dhaka." />
+<meta property="og:title" content={site.name} />
+<meta property="og:description" content={site.headline} />
+<meta property="og:type" content="website" />
+<meta property="og:image" content={site.photo} />
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#top">{site.brand}</a>
+  <nav aria-label="Main">{nav.map(([id,l]) => <a href={`#${id}`}>{l}</a>)}</nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-text">
+    <h1>{site.name}</h1>
+    <p class="lead">{site.headline}</p>
+    <p>{site.intro}</p>
+    <div class="actions">
+      <a class="btn solid" href="#projects">View projects</a>
+      <a class="btn" href={site.cvFile || '#cv'} download={site.cvFile ? true : undefined}>{site.cvFile ? 'Download CV' : 'CV'}</a>
+      <a class="btn" href="#contact">Contact me</a>
+    </div>
+    <p class="links"><a href={site.linkedin}>LinkedIn</a> <a href={site.github}>GitHub</a></p>
+  </div>
+  <div class="hero-photo">
+    <img src={site.photo} alt={`Portrait of ${site.name}`} fetchpriority="high" />
+  </div>
+</section>
+
+<main>
+<section id="about"><h2>About</h2>{paras.map((p) => <p>{p}</p>)}</section>
+
+<section id="education"><h2>Education</h2>
+  <ol class="timeline">{education.items.map((e) => <li><h3>{e.degree}</h3><p class="meta">{e.school}. {e.period}.</p><p>{e.text}</p></li>)}</ol></section>
+
+<section id="skills"><h2>Skills</h2><p class="note">Levels are my honest self-assessment. Coursework is academic learning, not professional expertise.</p>
+  <dl>{skills.items.map((s) => <><dt>{s.category}</dt><dd>{s.entries}</dd></>)}</dl></section>
+
+<section id="projects"><h2>Academic projects</h2>
+  {projects.items.map((p, i) => (
+  <article class="project">
+    <h3>{p.title}</h3>
+    <p class="meta">{p.kind}. {p.tech}.</p>
+    <p>{p.summary}</p>
+    <div class="groups">{p.features.map((g) => <div><h4>{g.group}</h4><ul>{g.items.map((x) => <li>{x}</li>)}</ul></div>)}</div>
+    <h4>My contribution</h4><p>{p.contribution}</p>
+    <h4>Workflow</h4>
+    {p.workflow.map((w) => <div class="lane"><strong>{w.lane}</strong><ol>{w.steps.map((x) => <li>{x}</li>)}</ol></div>)}
+    <h4>Screenshots</h4>
+    {p.screenshots.length ? <div class="shots">{p.screenshots.map((x) => <figure><img src={x.image} alt={x.caption} loading="lazy" /><figcaption>{x.caption}</figcaption></figure>)}</div>
+      : <div class="shots"><div class="ph">Project screenshot</div><div class="ph">Project screenshot</div></div>}
+    {p.repo && <p><a href={p.repo}>View on GitHub</a></p>}
+  </article>))}
+</section>
+
+<section id="experience"><h2>Professional experience</h2>
+  <ol class="timeline">{experience.items.map((e) => (
+    <li><h3>{e.role}, {e.org}</h3><p class="meta">{e.kind}. {e.start} to {e.end}. {e.location}.</p>
+    <p>{e.summary}</p><ul>{e.points.map((x) => <li>{x}</li>)}</ul></li>))}</ol></section>
+
+<section id="journey"><h2>Learning journey</h2>
+  <ol class="timeline">{journey.items.map((j) => <li><h3>{j.year}: {j.title}</h3><p>{j.text}</p></li>)}</ol></section>
+
+<section id="learning"><h2>Currently learning</h2><ul>{learning.items.map((l) => <li>{l}</li>)}</ul></section>
+
+<section id="achievements"><h2>Achievements</h2>
+  {has(achievements) ? <ol class="timeline">{achievements.items.map((a) => <li><h3>{a.year}: {a.title}</h3><p>{a.text}</p></li>)}</ol>
+  : <p class="empty">No formal awards or competition results yet. Achievements will be added here as they happen.</p>}</section>
+
+<section id="certifications"><h2>Certifications and courses</h2>
+  {has(certifications) ? <ul>{certifications.items.map((c) => <li><strong>{c.title}</strong>, {c.issuer} ({c.year}){c.link && <> <a href={c.link}>Verify</a></>}</li>)}</ul>
+  : <p class="empty">No professional certifications yet. Verified certificates will be added here after I complete them.</p>}</section>
+
+<section id="gallery"><h2>Event and photo gallery</h2>
+  {has(gallery) ? <div class="masonry">{gallery.items.map((g) => <figure><img src={g.src} alt={g.caption} loading="lazy" /><figcaption>{g.caption}<br /><span>{g.category}, {g.date}</span></figcaption></figure>)}</div>
+  : <><p class="empty">Photos from university events, workshops and academic activities will appear here.</p>
+    <div class="masonry">{[9,6,7,5,8,6].map((r) => <div class="ph" style={`aspect-ratio:${r}/7`}>Photo coming soon</div>)}</div></>}</section>
+
+<section id="cv"><h2>CV</h2>
+  {site.cvFile ? <p><a class="btn solid dark" href={site.cvFile}>View CV</a> <a class="btn dark" href={site.cvFile} download>Download CV</a></p>
+  : <p class="empty">My CV will be available here soon.</p>}</section>
+
+<section id="contact"><h2>Contact</h2>
+  <p>Location: {site.location}</p>
+  <p>LinkedIn: <a href={site.linkedin}>Md. Sabbir Ahmmed Shuvo</a></p>
+  <p>GitHub: <a href={site.github}>sabbirshuvos</a></p>
+  <p>Email: {site.showEmail && site.email ? <a href={`mailto:${site.email}`}>{site.email}</a> : <span class="empty-inline">to be added</span>}</p></section>
+</main>
+<footer><p>{site.name}. Built with Astro.</p></footer>
+</body>
+</html>

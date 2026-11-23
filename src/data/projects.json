@@ -1,0 +1,19 @@
+{"items":[
+{"title":"Smart Resort Management System","kind":"Team academic project","tech":"Java, MySQL, NetBeans",
+"summary":"A Java-based resort management application designed to simplify guest services and internal resort operations. It provides separate functions for guests and administrators, covering room bookings, guest information, employee accounts, shifts and resort-related services.",
+"features":[
+{"group":"Guest side","items":["Guest registration and login","Browse and view room details","Room booking","View booking bills and pay them","View food and diet-related room service information"]},
+{"group":"Admin side","items":["Monitor guest registrations and login activity","Monitor employee accounts and login activity","Manage employee information and accounts","Change the administrator's own password, and manage or reset employee passwords","Assign and modify employee shifts, and adjust or cancel them when an employee has a scheduling problem or leave","Manage room-service and food-service employee assignments"]}],
+"contribution":"I contributed to the guest-facing functionality and the administrative section, particularly employee account management, password management, and shift assignment and scheduling. This was a team project, and I worked with my teammates throughout.",
+"workflow":[
+{"lane":"Guest","steps":["Register","Log in","Browse rooms","Book a room","View bill","Pay bill"]},
+{"lane":"Admin","steps":["Log in","Monitor guests and employees","Manage employee accounts","Assign or adjust shifts","Assign service staff"]}],
+"screenshots":[],"repo":""},
+{"title":"AI-Based Personal Fitness Assistant","kind":"Individual academic project","tech":"Java",
+"summary":"An AI-based personal fitness assistant that helps users monitor their daily lifestyle, food consumption, calorie intake, physical activities and general health-related information. Its feedback is general informational fitness and lifestyle guidance. It is not a medical diagnosis or treatment tool.",
+"features":[
+{"group":"Features","items":["Daily food and meal tracking","Daily calorie intake monitoring and estimated calorie requirements","Walking and physical activity tracking","Recording user-provided health information, including blood pressure readings when provided","Analysis of recorded information with instant general feedback and lifestyle suggestions","Daily activity summaries and weekly progress reports","Pointing out areas where habits could improve, with general fitness and lifestyle recommendations"]}],
+"contribution":"This was my individual academic project. I independently designed and developed the application, including daily activity tracking, nutrition monitoring, health-related information management, feedback and report generation.",
+"workflow":[{"lane":"User","steps":["Enter meals, activities and health information","Track calories and activity","Analyse recorded data","Receive general feedback","Daily summary and weekly report"]}],
+"screenshots":[],"repo":""}
+]}

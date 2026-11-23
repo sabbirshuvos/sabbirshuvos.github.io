@@ -1,0 +1,181 @@
+# Sveltia CMS configuration. Contains NO secrets: your token is typed into the
+# sign-in dialog and is never written to any file in this repository.
+backend:
+  name: github
+  repo: sabbirshuvos/sabbirshuvos.github.io
+  branch: main
+  auth_methods: [token]   # token sign-in only; OAuth is disabled
+
+# Default publish mode (simple): saving commits straight to main, so the token
+# needs only "Contents: Read and write". Do not switch to editorial_workflow
+# without reading README.md first (it would need "Pull requests" permission).
+media_folder: public/uploads
+public_folder: /uploads
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image: { format: webp, quality: 85, width: 1600 }
+singletons: []
+collections:
+  - name: pages
+    label: Website content
+    files:
+      - name: site
+        label: Profile and introduction
+        file: src/data/site.json
+        format: json
+        fields:
+          - { name: name, label: Full name }
+          - { name: brand, label: Brand name }
+          - { name: headline, label: Headline }
+          - { name: intro, label: Short intro }
+          - { name: about, label: About text (blank line between paragraphs), widget: text }
+          - { name: degree, label: Degree }
+          - { name: university, label: University }
+          - { name: semester, label: Current semester }
+          - { name: graduation, label: Graduation year }
+          - { name: location, label: Location }
+          - { name: github, label: GitHub link }
+          - { name: linkedin, label: LinkedIn link }
+          - { name: email, label: Public email, required: false, hint: "Leave blank. Only shown if the switch below is on." }
+          - { name: showEmail, label: Show email on the website, widget: boolean, default: false }
+          - { name: photo, label: Profile photo, widget: image, media_folder: /public/images/profile, public_folder: /images/profile }
+          - { name: cvFile, label: CV file (PDF), widget: file, required: false, media_folder: /public/uploads/cv, public_folder: /uploads/cv }
+      - name: education
+        label: Education
+        file: src/data/education.json
+        format: json
+        fields:
+          - name: items
+            label: Degrees
+            widget: list
+            fields:
+              - { name: degree, label: Degree }
+              - { name: school, label: University }
+              - { name: period, label: Period }
+              - { name: text, label: Description, widget: text }
+      - name: skills
+        label: Skills
+        file: src/data/skills.json
+        format: json
+        fields:
+          - name: items
+            label: Skill groups
+            widget: list
+            fields:
+              - { name: category, label: Group name }
+              - { name: entries, label: Skills and honest levels }
+      - name: projects
+        label: Projects
+        file: src/data/projects.json
+        format: json
+        fields:
+          - name: items
+            label: Projects
+            widget: list
+            fields:
+              - { name: title, label: Title }
+              - { name: kind, label: Type (team, individual, personal) }
+              - { name: tech, label: Technologies }
+              - { name: summary, label: Overview, widget: text }
+              - name: features
+                label: Feature groups
+                widget: list
+                fields:
+                  - { name: group, label: Group name }
+                  - { name: items, label: Features, widget: list, field: { name: item, label: Feature, widget: string } }
+              - { name: contribution, label: My contribution, widget: text }
+              - name: workflow
+                label: Workflow lanes
+                widget: list
+                fields:
+                  - { name: lane, label: Lane (e.g. Guest, Admin) }
+                  - { name: steps, label: Steps in order, widget: list, field: { name: step, label: Step, widget: string } }
+              - name: screenshots
+                label: Screenshots
+                widget: list
+                required: false
+                fields:
+                  - { name: image, label: Image, widget: image }
+                  - { name: caption, label: Caption }
+              - { name: repo, label: GitHub link, required: false }
+      - name: experience
+        label: Experience
+        file: src/data/experience.json
+        format: json
+        fields:
+          - name: items
+            label: Roles
+            widget: list
+            fields:
+              - { name: org, label: Organisation }
+              - { name: role, label: Role }
+              - { name: kind, label: Type (part-time, internship, full-time) }
+              - { name: start, label: Start }
+              - { name: end, label: End (or Present) }
+              - { name: location, label: Location }
+              - { name: summary, label: Short description, widget: text }
+              - name: points
+                label: Responsibilities
+                widget: list
+                field: { name: point, label: Responsibility, widget: string }
+      - name: journey
+        label: Journey timeline
+        file: src/data/journey.json
+        format: json
+        fields:
+          - name: items
+            label: Milestones
+            widget: list
+            fields:
+              - { name: year, label: Year }
+              - { name: title, label: Title }
+              - { name: text, label: Description, widget: text }
+      - name: achievements
+        label: Achievements (shows an empty state until you add one)
+        file: src/data/achievements.json
+        format: json
+        fields:
+          - name: items
+            label: Achievements
+            widget: list
+            fields:
+              - { name: year, label: Year }
+              - { name: title, label: Title }
+              - { name: text, label: Description, widget: text }
+      - name: certifications
+        label: Certifications (shows an empty state until you add one)
+        file: src/data/certifications.json
+        format: json
+        fields:
+          - name: items
+            label: Certifications
+            widget: list
+            fields:
+              - { name: title, label: Title }
+              - { name: issuer, label: Issuer }
+              - { name: year, label: Year }
+              - { name: link, label: Verification link, required: false }
+      - name: gallery
+        label: Gallery (shows an empty state until you add one)
+        file: src/data/gallery.json
+        format: json
+        fields:
+          - name: items
+            label: Photos
+            widget: list
+            fields:
+              - { name: src, label: Photo, widget: image }
+              - { name: caption, label: Caption }
+              - { name: category, label: Category (event, workshop, seminar) }
+              - { name: date, label: Date }
+      - name: learning
+        label: Currently learning
+        file: src/data/learning.json
+        format: json
+        fields:
+          - name: items
+            label: Topics
+            widget: list
+            field: { name: topic, label: Topic, widget: string }
